@@ -1,4 +1,4 @@
-import { Globe, FileText, Shield, Zap } from "lucide-react";
+import { Globe, FileText, Shield, Zap, Play } from "lucide-react";
 import PacketAnimation from "@/components/PacketAnimation";
 import FilterTable from "@/components/FilterTable";
 import Quiz from "@/components/Quiz";
@@ -7,6 +7,8 @@ import SectionCard from "@/components/SectionCard";
 import WorkflowDiagram from "@/components/WorkflowDiagram";
 import RealityChecklist from "@/components/RealityChecklist";
 import TerminalText from "@/components/TerminalText";
+import StepGuide from "@/components/StepGuide";
+import SOCWorkflow from "@/components/SOCWorkflow";
 
 const dnsFilters = [
   { filter: "dns", use: "Show all DNS traffic" },
@@ -100,6 +102,31 @@ const Index = () => {
                 </ul>
               </div>
 
+              <StepGuide
+                title="How to See DNS in Real Time"
+                description="You are watching which domain names a system is trying to access."
+                accentColor="primary"
+                steps={[
+                  { text: "Open Wireshark" },
+                  { text: "Select your active network interface" },
+                  { text: "Click Start to begin capture" },
+                  { text: "Open any website in a browser" },
+                  { text: "Apply the display filter:", code: "dns" },
+                ]}
+                lookFor={{
+                  label: "Look at:",
+                  items: [
+                    "Domain name (example.com)",
+                    "Source IP (who is asking)",
+                    "Destination IP (DNS server)",
+                  ],
+                }}
+                indicators={{
+                  good: "Known domain → normal",
+                  bad: "Random or strange → escalate",
+                }}
+              />
+
               <FilterTable
                 title="DNS Wireshark Filters"
                 filters={dnsFilters}
@@ -137,6 +164,29 @@ const Index = () => {
                 </ul>
               </div>
 
+              <StepGuide
+                title="How to See HTTP in Real Time"
+                description="You are watching web requests and responses."
+                accentColor="success"
+                steps={[
+                  { text: "Start Wireshark capture" },
+                  { text: "Visit a website using http:// (not https)", code: "http://example.com" },
+                  { text: "Apply the display filter:", code: "http" },
+                ]}
+                lookFor={{
+                  label: "Look at:",
+                  items: [
+                    "Website name",
+                    "URL path",
+                    "Request type (GET / POST)",
+                  ],
+                }}
+                indicators={{
+                  good: "Normal browsing → OK",
+                  bad: "Unknown site or file download → investigate",
+                }}
+              />
+
               <FilterTable
                 title="HTTP Wireshark Filters"
                 filters={httpFilters}
@@ -153,6 +203,11 @@ const Index = () => {
           <span className="text-primary">{">"}</span> Quick Comparison (SOC View)
         </h2>
         <ComparisonTable />
+      </section>
+
+      {/* SOC L1 Real Work Workflow */}
+      <section className="px-4 py-16 max-w-4xl mx-auto">
+        <SOCWorkflow />
       </section>
 
       {/* Reality Check */}
