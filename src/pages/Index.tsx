@@ -1,4 +1,4 @@
-import { Globe, FileText, Shield, Zap, Play } from "lucide-react";
+import { Globe, FileText, Shield, Zap, Play, Terminal } from "lucide-react";
 import PacketAnimation from "@/components/PacketAnimation";
 import FilterTable from "@/components/FilterTable";
 import Quiz from "@/components/Quiz";
@@ -9,6 +9,7 @@ import RealityChecklist from "@/components/RealityChecklist";
 import TerminalText from "@/components/TerminalText";
 import StepGuide from "@/components/StepGuide";
 import SOCWorkflow from "@/components/SOCWorkflow";
+import PacketSimulator from "@/components/PacketSimulator";
 
 const dnsFilters = [
   { filter: "dns", use: "Show all DNS traffic" },
@@ -63,9 +64,21 @@ const Index = () => {
         <WorkflowDiagram />
       </section>
 
-      {/* Quiz Section - FIRST */}
+      {/* Quiz Section */}
       <section className="px-4 py-16 max-w-4xl mx-auto">
         <Quiz />
+      </section>
+
+      {/* Packet Capture Simulator */}
+      <section className="px-4 py-16 max-w-5xl mx-auto">
+        <h2 className="text-2xl font-bold text-center text-foreground mb-2">
+          <Terminal className="inline w-6 h-6 text-primary mr-2" />
+          Practice: Packet Capture Simulator
+        </h2>
+        <p className="text-center text-muted-foreground mb-8 font-mono text-sm">
+          Apply Wireshark display filters in real-time
+        </p>
+        <PacketSimulator />
       </section>
 
       {/* Main Content */}
